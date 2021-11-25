@@ -69,10 +69,10 @@ class AudioDataset(data.Dataset):
         pair = np.load(self.file_names[idx])
         pair = emphasis(pair[np.newaxis, :, :], emph_coeff=0.95).reshape(2, -1)
         noisy = pair[1].reshape(1, -1)
-        if self.data_type == 'train':
+        if ((self.data_type == 'train') || (self.data_type == 'validation')):
             clean = pair[0].reshape(1, -1)
             return torch.from_numpy(pair).type(torch.FloatTensor), torch.from_numpy(clean).type(
-                torch.FloatTensor), torch.from_numpy(noisy).type(torch.FloatTensor)
+                torch.FloatTensor), torch.from_numpy(noisy).type(torch.FloatTensor)            
         else:
             return os.path.basename(self.file_names[idx]), torch.from_numpy(noisy).type(torch.FloatTensor)
 
