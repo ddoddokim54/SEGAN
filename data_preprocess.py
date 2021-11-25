@@ -9,6 +9,7 @@ noisy_train_folder = 'data/noisy_trainset_56spk_wav'
 clean_test_folder = 'data/clean_testset_wav'
 noisy_test_folder = 'data/noisy_testset_wav'
 serialized_train_folder = 'data/serialized_train_data'
+serialized_validation_folder = 'data/serialized_validation_data'
 serialized_test_folder = 'data/serialized_test_data'
 window_size = 2 ** 14  # about 1 second of samples
 sample_rate = 16000
@@ -39,6 +40,10 @@ def process_and_serialize(data_type):
         clean_folder = clean_train_folder
         noisy_folder = noisy_train_folder
         serialized_folder = serialized_train_folder
+    else if data_type == 'validation':
+        clean_folder = clean_validation_folder
+        noisy_folder = noisy_validation_folder
+        serialized_folder = serialized_validation_folder
     else:
         clean_folder = clean_test_folder
         noisy_folder = noisy_test_folder
@@ -69,6 +74,8 @@ def data_verify(data_type):
     """
     if data_type == 'train':
         serialized_folder = serialized_train_folder
+    else if data_type == 'validation':
+        serialized_folder = serialized_validation_folder
     else:
         serialized_folder = serialized_test_folder
 
@@ -83,5 +90,7 @@ def data_verify(data_type):
 if __name__ == '__main__':
     process_and_serialize('train')
     data_verify('train')
+    process_and_serialize('validation')
+    data_verify('validation')
     process_and_serialize('test')
     data_verify('test')
