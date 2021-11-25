@@ -4,7 +4,7 @@ import numpy as np
 import torch
 from torch.utils import data
 
-from data_preprocess import serialized_test_folder, serialized_train_folder
+from data_preprocess import serialized_test_folder, serialized_train_folder, serialized_validation_folder
 
 
 def emphasis(signal_batch, emph_coeff=0.95, pre=True):
@@ -38,6 +38,8 @@ class AudioDataset(data.Dataset):
 
         if data_type == 'train':
             data_path = serialized_train_folder
+        else if data_type == 'validation':
+            data_path = serialized_validation_folder
         else:
             data_path = serialized_test_folder
         if not os.path.exists(data_path):
